@@ -20,7 +20,7 @@ function createPages() {
     document.write('</div>');
 	
     document.write('<div data-role="footer">');
-    document.write('<h4>(c) 2012 Michael Rumpf</h4>');
+    document.write('<h6>(c) 2012 Michael Rumpf</h6>');
     document.write('</div>');
     document.write('</div>');
   }
