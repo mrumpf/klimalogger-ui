@@ -1,35 +1,35 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # $1 rrd file
 # $2 start timestamp
 function create_rrd()
 {
-rrdtool create $1                    \
-            --start $2               \
-            DS:T0:GAUGE:600:-50:50   \
-            DS:H0:GAUGE:600:0:100    \
-            DS:T1:GAUGE:600:-50:50   \
-            DS:H1:GAUGE:600:0:100    \
-            DS:T2:GAUGE:600:-50:50   \
-            DS:H2:GAUGE:600:0:100    \
-            DS:T3:GAUGE:600:-50:50   \
-            DS:H3:GAUGE:600:0:100    \
-            DS:T4:GAUGE:600:-50:50   \
-            DS:H4:GAUGE:600:0:100    \
-            DS:T5:GAUGE:600:-50:50   \
-            DS:H5:GAUGE:600:0:100    \
-            RRA:AVERAGE:0.5:1:1440   \
-            RRA:MIN:0.5:1:1440       \
-            RRA:MAX:0.5:1:1440       \
-            RRA:AVERAGE:0.5:30:17520 \
-            RRA:MIN:0.5:30:17520     \
-            RRA:MAX:0.5:30:17520
+echo "### Creating RRD..."
+# 365 * 24 = 8760
+rrdtool create $1                   \
+            --start $2              \
+            DS:T0:GAUGE:600:U:U     \
+            DS:H0:GAUGE:600:U:U     \
+            DS:T1:GAUGE:600:U:U     \
+            DS:H1:GAUGE:600:U:U     \
+            DS:T2:GAUGE:600:U:U     \
+            DS:H2:GAUGE:600:U:U     \
+            DS:T3:GAUGE:600:U:U     \
+            DS:H3:GAUGE:600:U:U     \
+            DS:T4:GAUGE:600:U:U     \
+            DS:H4:GAUGE:600:U:U     \
+            DS:T5:GAUGE:600:U:U     \
+            DS:H5:GAUGE:600:U:U     \
+            RRA:AVERAGE:0.5:12:8760 \
+            RRA:MIN:0.5:12:8760     \
+            RRA:MAX:0.5:12:8760
 }
 
 # $1 rrd file
 # $2 file to convert
 function convert()
 {
+echo "### Creating CSV and feeding to RRD..."
 while read p; do
 
 time=$(echo $p | tr '|' ' ' | awk '{print $2}')
@@ -56,8 +56,9 @@ done < $2
 
 function mkgraph()
 {
+echo "### Making graph from RRD..."
 rrdtool graph $1.png                           \
-      --start 1257696599 --end 1258185900      \
+      --start $2 --end $3                      \
       --vertical-label "C/H"                   \
       DEF:temp0=$1:T0:AVERAGE                  \
       DEF:hum0=$1:H0:AVERAGE                   \
@@ -65,7 +66,7 @@ rrdtool graph $1.png                           \
       DEF:hum1=$1:H1:AVERAGE
 }
 
-#create_rrd tfa.rrd 1257696599
-#convert tfa.rrd tfa_dump.csv
-mkgraph tfa.rrd 1257696599 1257696599
+create_rrd tfa.rrd 1257696590
+convert tfa.rrd tfa_dump.csv
+mkgraph tfa.rrd 1257696600 1343516400
 

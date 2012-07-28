@@ -1,7 +1,7 @@
 
 function createMenu() {
   for (var i = 0; i < Config.stations.length; i++) {
-    document.write('<li><a href="#page' + i + '">' + Config.stations[i]['name'] + '</a></li>');
+    document.write('<li><a href="#page' + i + '">' + Current.stations[i]['temp'] + TEMPERATURE_UNIT + ' / ' + Current.stations[i]['humid'] + HUMIDITY_UNIT + ' - ' + Config.stations[i]['name'] + '</a></li>');
   }
 }
 
