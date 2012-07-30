@@ -74,7 +74,7 @@ function draw_graph(idx) {
     },
     xaxis: {
       mode: "time",
-      timeformat: "%y/%m/%d"
+      timeformat: "%d.%m\n%y"
     }
   };
   $.plot($("#mygraph" + idx), series, options);
