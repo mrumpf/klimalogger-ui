@@ -1,15 +1,10 @@
-jQuery Mobile
-http://jquerymobile.com/
 
-javascriptRRD
-http://sourceforge.net/projects/javascriptrrd/
 
-RRDtool
-http://oss.oetiker.ch/rrdtool/
-
-Epoch Converter
-http://www.epochconverter.com/
-2009-11-08T17:10:00 => 1257696600
+### Libraries ###
+* jQuery Mobile - http://jquerymobile.com/
+* Jarmon - https://launchpad.net/jarmon 
+  * javascriptRRD - http://sourceforge.net/projects/javascriptrrd/ (https://github.com/manuelluis/jsrrdgraph)
+* RRDtool - http://oss.oetiker.ch/rrdtool/
 
 
 
