@@ -1,4 +1,3 @@
-
 function createMenu() {
   for (var i = 0; i < Config.stations.length; i++) {
     document.write('<li><a href="#page' + i + '">' + Current.stations[i]['temp'] + TEMPERATURE_UNIT + ' / ' + Current.stations[i]['humid'] + HUMIDITY_UNIT + ' - ' + Config.stations[i]['name'] + '</a></li>');
@@ -6,23 +5,23 @@ function createMenu() {
 }
 
 
-function createPages() {
+function createSubPages() {
   for (var i = 0; i < Config.stations.length; i++) {
-    document.write('<div data-role="page" id="page' + i + '" data-theme="a">');
+    document.write('<div data-role="page" id="page' + i + '" data-theme="b" style="background-color: #CCCCCC;background-image: none;">');
 
     document.write('<div data-role="header">');
     document.write('<a href="#main" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>');
     document.write('<h1>' + Config.stations[i]['name'] + '</h1>');
     document.write('</div>');
 
-    document.write('<div data-role="content" data-theme="a">');	
+    document.write('<div data-role="content" data-theme="b">');	
 
-    document.write('<script language="javascript">draw(' + i + ');</script>');	
-    document.write('<div style="width:100%; height:300px;" id="mygraph' + i + '"></div>');	
+    document.write('<div style="margin:0px auto;width:80%; height:300px;" id="mygraph' + i + '"></div>');	
+    document.write('<script language="javascript">drawChart(' + i + ');</script>');	
 
     document.write('</div>');
 	
-    document.write('<div data-role="footer">');
+    document.write('<div data-role="footer" data-theme="b" data-position="fixed">');
     document.write('<h6>(c) 2012 Michael Rumpf</h6>');
     document.write('</div>');
     document.write('</div>');
@@ -74,10 +73,12 @@ function draw_graph(idx) {
     },
     xaxis: {
       mode: "time",
-      timeformat: "%d.%m\n%y"
-    }
+      timeformat: "%d.%m.\n%y"
+    },
   };
-  $.plot($("#mygraph" + idx), series, options);
+
+  var placeholder = $("#mygraph" + idx);
+  $.plot(placeholder, series, options);
 }
 
 function rrd_load(bf, idx) {
@@ -93,12 +94,42 @@ function rrd_load(bf, idx) {
   }
 }
 
-function draw(idx) {
+function drawChart(idx) {
   fname = "tfa_" + idx + ".rrd";
   try {
     FetchBinaryURLAsync(fname, rrd_load, idx);
   } catch (err) {
     alert("Failed loading " + fname+"\n" + err);
   }
+}
+
+function getForecast() {
+
+  // Open the students.xml file
+  $.get("googleweather.xml",{},function(xml){
+
+	// Build an HTML string
+	myHTMLOutput = '';
+ 	myHTMLOutput += '<table width="98%" border="1" cellpadding="0" cellspacing="0">';
+  	myHTMLOutput += '<th>Tag</th><th>Temperaturen</th><th>&nbsp;</th>';
+  	
+        prefix = "/ig/images/";
+	// Run the function for each student tag in the XML file
+	$('forecast_conditions',xml).each(function(i) {
+		var dayOfWeek = $(this).find("day_of_week").attr("data");
+		var low = $(this).find("low").attr("data");
+		var high = $(this).find("high").attr("data");
+		var iconData = $(this).find("icon").attr("data");
+                var icon = iconData.substring(prefix.length, iconData.length);
+		var condition = $(this).find("condition").attr("data"); 
+
+mydata = "<tr><td>" + dayOfWeek + "</td><td>" + low + "&deg; - " + high + "&deg; C</td><td><img src=\"" + $.trim(icon) + "\"/></td></tr>";
+		myHTMLOutput = myHTMLOutput + mydata;
+	});
+	myHTMLOutput += '</table>';
+	
+	// Update the DIV called Content Area with the HTML string
+	$("#forecast").append(myHTMLOutput);
+  });
 }
 

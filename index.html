@@ -5,42 +5,59 @@
 	<meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0;"/>
 	<title>Klimalogger</title> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
-	<script language="javascript" src="javascriptrrd-0.6.1/flot/jquery.js"></script>
-	<script language="javascript" src="javascriptrrd-0.6.1/flot/jquery.flot.js"></script>
-	<script language="javascript" src="javascriptrrd-0.6.1/flot/jquery.flot.resize.js"></script>
-	<script language="javascript" src="javascriptrrd-0.6.1/src/lib/binaryXHR.js"></script>
-	<script language="javascript" src="javascriptrrd-0.6.1/src/lib/rrdFile.js"></script>
-	<script language="javascript" src="javascriptrrd-0.6.1/src/lib/rrdFilter.js"></script>
-	<script language="javascript" src="klimalogger.current.js"></script>
-	<script language="javascript" src="klimalogger.config.js"></script>
-	<script language="javascript" src="klimalogger.js"></script>
+	<link rel="stylesheet" href="jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.css" />
+	<script language="javascript" type="text/javascript" src="jquery/jquery-1.7.1.min.js"></script>
+	<script language="javascript" type="text/javascript" src="jquery.mobile-1.1.1/jquery.mobile-1.1.1.min.js"></script>
+	<script language="javascript" type="text/javascript" src="javascriptrrd-0.6.1/flot/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="javascriptrrd-0.6.1/flot/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="javascriptrrd-0.6.1/flot/jquery.flot.resize.js"></script>
+	<script language="javascript" type="text/javascript" src="javascriptrrd-0.6.1/src/lib/binaryXHR.js"></script>
+	<script language="javascript" type="text/javascript" src="javascriptrrd-0.6.1/src/lib/rrdFile.js"></script>
+	<script language="javascript" type="text/javascript" src="javascriptrrd-0.6.1/src/lib/rrdFilter.js"></script>
+	<script language="javascript" type="text/javascript" src="klimalogger.current.js"></script>
+	<script language="javascript" type="text/javascript" src="klimalogger.config.js"></script>
+	<script language="javascript" type="text/javascript" src="klimalogger.js"></script>
 </head> 
 
-	
 <body> 
 
-<!-- Start of first page: #one -->
-<div data-role="page" id="main" data-theme="a" data-title="Klimalogger">
+
+<div data-role="page" id="main" data-theme="b" data-title="Klimalogger">
 
 	<div data-role="header">
 		<h1>Klimalogger</h1>
-	</div><!-- /header -->
+	</div>
 
-	<div data-role="content" >	
+	<div data-role="content">	
 		<ul data-role="listview" data-inset="true" data-filter="false">
 			<script language="javascript">createMenu();</script>
 		</ul>
-	</div><!-- /content -->
+                <a href="#forecast-page" data-role="button">Wettervorhersage</a>
+	</div>
 	
-	<div data-role="footer" data-theme="a">
+	<div data-role="footer" data-theme="b" data-position="fixed">
 		<h6>(c) 2012 Michael Rumpf</h6>
-	</div><!-- /footer -->
-</div><!-- /page one -->
+	</div>
+</div>
 
-<script language="javascript">createPages();</script>
+<script language="javascript">createSubPages();</script>
+
+
+<div data-role="page" id="forecast-page" data-theme="b" data-title="Klimalogger">
+
+	<div data-role="header">
+                <a href="#main" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+		<h1>Wettervorhersage</h1>
+	</div>
+
+	<div data-role="content">
+		<div id="forecast"><script language="javascript">getForecast();</script></div>
+	</div>
+	
+	<div data-role="footer" data-theme="b" data-position="fixed">
+		<h6>(c) 2012 Michael Rumpf</h6>
+	</div>
+</div>
 
 </body>
 </html>
