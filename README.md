@@ -19,10 +19,12 @@ PNG images. The files can be found in the sub-folder tmp/data.
 ## Crontab
 
 ### Wheather Forecast
-`0 0 * * *   $KLIMALOGGER_HOME/bin/weather-forecast.sh`
+`KLIMALOGGER_HOME=/home/pi/workspaces/klimalogger/klimalogger-ui
+0 0 * * *   $KLIMALOGGER_HOME/bin/weather-forecast.sh`
 
 ### Temperature
-`*/5 * * * * $KLIMALOGGER_HOME/bin/dump....`
+`KLIMALOGGER_HOME=/home/pi/workspaces/klimalogger/klimalogger-ui
+*/5 * * * * $KLIMALOGGER_HOME/bin/dump....`
 
 # Libraries
 The following libraries are used by the klimalogger-ui application:
