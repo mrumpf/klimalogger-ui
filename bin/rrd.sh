@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+DUMP_FILE=$1
+if [ -z "$DUMP_FILE" ]
+then
+  DUMP_FILE=klimalogger_dump.csv
+fi
+
 if [ -z "$KLIMALOGGER_HOME" ]
 then
   KLIMALOGGER_HOME=.
@@ -95,7 +101,7 @@ function mkgraph()
 }
 
 create_rrd klimalogger 1257696590
-convert klimalogger $KLIMALOGGER_HOME/klimalogger_dump.csv
+convert klimalogger $KLIMALOGGER_HOME/$DUMP_FILE
 mkgraph klimalogger 0 1257696590 1258185910
 mkgraph klimalogger 1 1257696590 1258185910
 mkgraph klimalogger 2 1257696590 1258185910
