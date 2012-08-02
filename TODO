@@ -1,3 +1,5 @@
+* Make https://github.com/mrumpf/klimalogger work from the Raspberry Pi
+This is currently the missing link. As soon as I get this to work, the RRDs can be filled directly from the Klimalogger.
 * The data/weather should be reloaded regularly via JavaScript
 * I18N: http://codingwithcoffee.com/?p=272
-* Make https://github.com/mrumpf/klimalogger work from the Raspberry Pi
+
